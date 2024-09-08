@@ -65,12 +65,15 @@ with tab3:
     url=st.text_input("Reel URL",placeholder="Paste Link Here...")
     btn=st.button("Generate",key=3)
     if btn:
+        try:
             shortcode=url.split("/")[5].strip()
             post = instaloader.Post.from_shortcode(L.context, shortcode)
             L.download_post(post, target='reels')
             shutil.make_archive(f"reels_{shortcode}",'zip', f"reels")
             with open(f"reels_{shortcode}.zip","rb") as file:
                         st.download_button("Download",file,f"reels_{shortcode}.zip")
+        except:
+            st.error("Something Went Wrong!")
 
 with tab4:
     target=st.text_input("Username",placeholder="Specify Username")
