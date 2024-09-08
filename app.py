@@ -69,6 +69,7 @@ with tab3:
             shortcode=url.split("/")[5].strip()
             post = instaloader.Post.from_shortcode(L.context, shortcode)
             L.download_post(post, target='reels')
+            
             shutil.make_archive(f"reels_{shortcode}",'zip', f"reels")
             with open(f"reels_{shortcode}.zip","rb") as file:
                         st.download_button("Download",file,f"reels_{shortcode}.zip")
@@ -96,20 +97,30 @@ with tab4:
                 }
 
                 response = requests.get(profile_info['profile_pic_url'])
+
                 with open("user_image.jpg","wb+") as img:
                     img.write(response.content)
 
                 st.write(f"<li style='font-size:29px;color:lightgreen;'>Profile Pic:</li>",unsafe_allow_html=True)
             
                 st.image("user_image.jpg",width=200)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Username: {profile_info['username']}</li>",unsafe_allow_html=True)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Full Name: {profile_info['fullname']}</li>",unsafe_allow_html=True)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Bio: {profile_info['bio']}</li>",unsafe_allow_html=True)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Followers: {profile_info['followers_count']}</li>",unsafe_allow_html=True)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Following: {profile_info['following_count']}</li>",unsafe_allow_html=True)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Total Posts: {profile_info['total_posts']}</li>",unsafe_allow_html=True)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Private Profile: {'Yes' if profile_info['is_private'] else 'No'}</li>",unsafe_allow_html=True)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Verified Profile: {'Yes' if profile_info['is_verified'] else 'No'}</li>",unsafe_allow_html=True)
+
                 st.write(f"<li style='font-size:27px;color:lightgreen;'>Business Account: {'Yes' if profile_info['is_business_account'] else 'No'}</li>",unsafe_allow_html=True)
         except:     
             st.error("Something Went Wrong!")
